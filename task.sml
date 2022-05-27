@@ -24,3 +24,20 @@ fun number_in_months(dates : (int * int * int) list, months : int list) =
         if null (tl months)
         then number_in_month(dates, hd months)
         else number_in_month(dates, hd months) + number_in_months(dates, tl months);
+
+fun dates_in_month(dates : (int * int * int) list, m : int) =
+    if null dates
+    then []
+    else
+        if #2 (hd dates) <> m
+        then dates_in_month(tl dates, m)
+        else (hd dates)::dates_in_month(tl dates, m);
+
+fun dates_in_months(dates : (int * int * int) list, months : int list) =
+    if null months
+    then []
+    else
+        if null (tl months)
+        then dates_in_month(dates, hd months)
+        else dates_in_month(dates, hd months) @ dates_in_months(dates, tl months);
+
